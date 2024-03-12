@@ -23,14 +23,14 @@ namespace GradeBook.GradeBooks
             if(Students.Count<5)
             {
                 throw new InvalidOperationException();
-            }
-            for (int i = 0; i < Students.Count; i++)
-            {
-                if (averageGrade >= average[i])
+            }         
+                for (int i = 0; i < Students.Count; i++)
                 {
-                    count++;
-                }
-            }
+                    if (averageGrade >= average[i])
+                    {
+                        count++;
+                    }
+                }                    
             double percent = ((double)count / Students.Count);                      
             if (percent > 0.80)
             {
@@ -58,8 +58,19 @@ namespace GradeBook.GradeBooks
             }else if(Students.Count >= 5) 
             {
                 base.CalculateStatistics();
+            }           
+        }
+        public override void CalculateStudentStatistics(string name)
+        {
+            if(Students.Count < 5)
+            {
+                Console.Write("Ranked grading requires at least 5 students.");
             }
-            
+            else if (Students.Count >= 5)
+            {
+                base.CalculateStudentStatistics(name);
+            }
+           
         }
     }
 }
