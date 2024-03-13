@@ -108,32 +108,47 @@ namespace GradeBook.GradeBooks
 
         public virtual double GetGPA(char letterGrade, StudentType studentType)
         {
-            if(studentType == StudentType.Honors || studentType == StudentType.DualEnrolled)
-            {
-                if(letterGrade == 'A')
+            if (IsWeighted)
+            {               
+                if (studentType == StudentType.Honors || studentType == StudentType.DualEnrolled)
                 {
-                    return 5;
+                    switch (letterGrade)
+                    {
+                        case 'A':
+                            return 5;                           
+                        case 'B':
+                            return 4;
+                        case 'C':
+                            return 3;
+                        case 'D':
+                            return 2;
+                        case 'F':
+                            return 1;
+                        default:
+                           return 0;
+                    }
                 }
-                if (letterGrade == 'B')
+                else
                 {
-                    return 4;
+                    switch (letterGrade)
+                    {
+                        case 'A':
+                            return 4;
+                        case 'B':
+                            return 3;
+                        case 'C':
+                            return 2;
+                        case 'D':
+                            return 1;
+                        case 'F':
+                            return 0;
+                        default:
+                            return 0;
+                    }
                 }
-                if (letterGrade == 'C')
-                {
-                    return 3;
-                }
-                if (letterGrade == 'D')
-                {
-                    return 2;
-                }
-                if (letterGrade == 'F')
-                {
-                    return 1;
-                }
-                return 0;
             }
             else
-            {
+            {               
                 switch (letterGrade)
                 {
                     case 'A':
@@ -146,9 +161,10 @@ namespace GradeBook.GradeBooks
                         return 1;
                     case 'F':
                         return 0;
+                    default:
+                        return 0;
                 }
-                return 0;
-            }           
+            }         
         }
 
         public virtual void CalculateStatistics()
